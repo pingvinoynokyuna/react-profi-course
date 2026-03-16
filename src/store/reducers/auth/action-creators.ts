@@ -1,3 +1,5 @@
+import axios from "axios";
+import { AppDispatch } from "../..";
 import { IUser } from "../../../models/IUser";
 import { AuthActionsEnum, SetAuthAction, SetErrorAction, SetIsLoadingAction, SetUserAction } from "./types";
 
@@ -6,4 +8,20 @@ export const AuthActionCreators = {
     setIsAuth: (auth: boolean): SetAuthAction => ({ type: AuthActionsEnum.SET_AUTH, payload: auth }),
     setError: (payload: string): SetErrorAction => ({ type: AuthActionsEnum.SET_ERROR, payload }),
     setIsLoading: (payload: boolean): SetIsLoadingAction => ({ type: AuthActionsEnum.SET_IS_LOADING, payload }),
+    login: (username: string, password: string) => async (dispatch: AppDispatch) => {
+        try {
+            dispatch(AuthActionCreators.setIsLoading(true));
+
+            const mockUsers = await axios.get('./users.json')
+        } catch (e) {
+            dispatch(AuthActionCreators.setError('Произошла ошибка при логине.'))
+        }
+    },
+    logout: () => async (dispatch: AppDispatch) => {
+        try {
+
+        } catch (e) {
+
+        }
+    }
 }
