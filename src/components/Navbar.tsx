@@ -12,11 +12,19 @@ export const Navbar = () => {
     const { isAuth, user } = useTypedSelector(state => state.auth);
     const { logout } = useActions();
 
-    const loginMenuItem = [
+    const loginMenuItems = [
         {
             key: 'login',
             label: 'Логин',
             onClick: () => navigate(RouteNames.LOGIN)
+        }
+    ]
+
+    const logoutMenuItems = [
+        {
+            key: 'logout',
+            label: 'Выйти',
+            onClick: () => logout()
         }
     ]
 
@@ -27,13 +35,12 @@ export const Navbar = () => {
                     ?
                     <>
                         <div style={{ color: 'white' }}>{user.username}</div>
-                        <Menu theme="dark" mode="horizontal" selectable={false}>
-
-                            <Menu.Item
-                                onClick={() => logout()}
-                                key={1}>
-                                Выйти
-                            </Menu.Item>
+                        <Menu
+                            theme="dark"
+                            mode="horizontal"
+                            selectable={false}
+                            items={logoutMenuItems}
+                        >
                         </Menu>
                     </>
                     :
@@ -41,7 +48,7 @@ export const Navbar = () => {
                         theme="dark"
                         mode="horizontal"
                         selectable={false}
-                        items={loginMenuItem}
+                        items={loginMenuItems}
                         disabledOverflow={true}
                     />
                 }
